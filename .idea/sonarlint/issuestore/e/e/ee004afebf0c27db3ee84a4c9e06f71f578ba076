@@ -1,0 +1,20 @@
+
+G
+java:S1481U",Remove this unused "dateEnd" local variable.(‚›ð×ùÿÿÿÿ
+V	java:S125="<This block of commented-out lines of code should be removed.(èôÜàýÿÿÿÿ
+D
+java:S1481T".Remove this unused "dateStart" local variable.(žÁå¿
+E
+java:S1481<"/Remove this unused "dateFormat" local variable.(ûú»ú
+?
+java:S1481;")Remove this unused "date" local variable.(Î‡ùþ
+P
+java:S14812"3Remove this unused "releaseTrainee" local variable.(˜Ä¸Ø8óý·Ÿ/
+t
+java:S3776+"RRefactor this method to reduce its Cognitive Complexity from 17 to the 15 allowed.(€Þ¸°ûÿÿÿÿ8›Ÿù·Ÿ/
+`
+java:S11924"KDefine a constant instead of duplicating this literal "yyyy-MM-dd" 4 times.(Ñ½øH
+V	java:S125b"<This block of commented-out lines of code should be removed.(ÿÌ±×üÿÿÿÿ
+]	java:S125d"<This block of commented-out lines of code should be removed.(ÆÊ˜Âùÿÿÿÿ8 …¨¼/
+P
+java:S14811"3Remove this unused "waitingTrainee" local variable.(õ˜³ç8÷Þü·Ÿ/

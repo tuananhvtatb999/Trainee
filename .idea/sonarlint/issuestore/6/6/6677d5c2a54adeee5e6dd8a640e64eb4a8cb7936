@@ -1,0 +1,12 @@
+
+^	java:S125 "<This block of commented-out lines of code should be removed.(–ë—İøÿÿÿÿ8ÚèÇœ/
+J	java:S108J")Either remove or fill this block of code.(é‡ˆÊüÿÿÿÿ8ÚèÇœ/
+Y	java:S125Ò"<This block of commented-out lines of code should be removed.(“¾Ì8ÚèÇœ/
+c
+java:S4684"@Replace this persistent entity with a simple POJO or DTO object.(’×ë¹øÿÿÿÿ8’İá¬Ÿ/
+e
+java:S1192V"HDefine a constant instead of duplicating this literal "message" 7 times.(Ü‡—Î8ÚèÇœ/
+b
+java:S4684z"@Replace this persistent entity with a simple POJO or DTO object.(’×ë¹øÿÿÿÿ8’İá¬Ÿ/
+M
+java:S1481Ï"*Remove this unused "scale" local variable.(ÜòüÓûÿÿÿÿ8ÚèÇœ/

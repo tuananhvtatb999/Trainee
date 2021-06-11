@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout-template.html}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      th:with="currentPage='Trainee Management',currentLink='Trainee Management',currentTemplate='Default Management'"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Trainee Management</title>
+</head>
+
+<body>
+<div layout:fragment="content" class="content">
+    <div class="container-fluid">
+<!--        <div class="d-flex justify-content-end mb-4">-->
+<!--            <form th:action="@{/trainee-management}" method="GET"-->
+<!--                  class="col-md-4 d-flex flex-row justify-content-end p-0">-->
+<!--                <div class="input-group col-md-8 p-0">-->
+<!--                    <input type="text" class="form-control" placeholder="Search" id="search" th:name="search"-->
+<!--                           th:value="${search}">-->
+<!--                    <div class="input-group-append">-->
+<!--                        <button class="btn btn-primary" type="submit">-->
+<!--                            <i class="fa fa-search"></i>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+
+                    <!-- start page title -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="page-title-box d-flex align-items-center justify-content-between">
+                                <h4 class="mb-0 font-size-18">Update Trainee</h4>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end page title -->
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <h4 class="card-title">Basic Information</h4>
+                                    <p class="card-title-desc">Fill all information below</p>
+                                    <p th:utext="${message}"></p>
+                                    <form th:action="@{/trainee-management/update-trainee}" th:object="${trainee}"
+                                          method="post">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Full Name</label>
+                                                    <input th:field="*{id}" th:value="*{id}" type="hidden"
+                                                           class="form-control">
+                                                    <input th:field="*{name}" type="text" class="form-control" required>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="email">Email</label>
+                                                    <input id="email" th:field="*{email}" onchange="Modal.checkEmail()"
+                                                           type="email" class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="tel-phone">Tel Number</label>
+                                                    <input id="tel-phone" onchange="checkPhoneNumber();"
+                                                           th:field="*{telPhone}" class="form-control" required>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="uni">University</label>
+                                                    <input id="uni" th:field="*{university}" type="text"
+                                                           class="form-control" required>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <button type="submit" id="save"
+                                                class="btn btn-primary mr-1 waves-effect waves-light">Save Changes
+                                        </button>
+                                        <a href="/class-management" class="btn btn-secondary waves-effect">Cancel</a>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end row -->
+
+                </div> <!-- container-fluid -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
