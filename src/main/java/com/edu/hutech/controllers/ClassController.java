@@ -21,6 +21,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 @Controller
@@ -60,9 +62,9 @@ public class ClassController {
      * @return class-management.html
      */
     @GetMapping()
-    public String displayCourseList(Model model, @RequestParam("page") Optional<Integer> page,
+    public String displayCourseList(Model model, @RequestParam("page") Optional<Integer> page, HttpServletRequest request,
                                     @RequestParam(value = "size") Optional<Integer> size, @RequestParam("field") Optional<String> field,
-                                    @RequestParam(value = "search") Optional<String> search) {
+                                    @RequestParam(value = "search") Optional<String> search, HttpServletResponse response) {
 
         int cPage = page.orElse(1);
         int pageSize = size.orElse(5);
@@ -75,7 +77,19 @@ public class ClassController {
         x.setPageSize(pageSize);
         x.setText(searchX);
 
-        classPage = courseService.searchByDto(x);
+        HttpSession session = request.getSession();
+        Integer traineeId = null;
+        Integer trainerId = null;
+        assert false;
+        if(session.getAttribute("userId") != null){
+            if(session.getAttribute("role").equals("ROLE_TRAINER")){
+                trainerId = (Integer) session.getAttribute("userId");
+            }else {
+                traineeId = (Integer) session.getAttribute("userId");
+            }
+        }
+
+        classPage = courseService.searchByDto(x, trainerId, traineeId);
 
 
         model.addAttribute("classPage", classPage);
@@ -153,6 +167,8 @@ public class ClassController {
         String modeView = view.orElse("list");
 
         pageSize = pageSize < 5 ? 5 : Math.min(pageSize, 500);
+        int pass = 0;
+        int failed = 0;
 
         Course course = courseService.findById(id);
         List<TraineeCourse> traineeCourseList = null;
@@ -160,6 +176,11 @@ public class ClassController {
         List<Trainee> traineeList = new ArrayList<>();
         for (TraineeCourse traineeCourse : traineeCourseList){
             traineeList.add(traineeCourse.getTrainee());
+            if(traineeCourse.getScore() >= 5){
+                pass++;
+            }else {
+                failed++;
+            }
         }
 
         List<Trainee> trainees = Pagination.getPage(traineeList, cPage, pageSize);
@@ -173,6 +194,8 @@ public class ClassController {
         model.addAttribute("size", pageSize);
         model.addAttribute("totalElements", traineeCourseList.size());
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("pass",pass);
+        model.addAttribute("failed", failed);
 
         PaginationRange p = Pagination.paginationByRange(cPage, traineeList.size(), pageSize, 5);
         model.addAttribute("paginationRange", p);
@@ -214,6 +237,8 @@ public class ClassController {
         TraineeCourse traineeCourse = new TraineeCourse();
 
         traineeCourse.setTrainee(trainee);
+        traineeCourse.setScore(0.0);
+
 
         courseInDB.setCurrCount(courseInDB.getCurrCount() + 1);
 
@@ -235,8 +260,16 @@ public class ClassController {
         double scale = Math.pow(10, 1);
 
 
-        model.addAttribute("trainee", trainee);
-        model.addAttribute("finalScore", (int) (Math.round(finalScore * scale) / scale) * 10);
+        if(trainee != null){
+            model.addAttribute("trainee", trainee);
+        }else {
+            model.addAttribute("trainee", new Trainee());
+        }
+        if(finalScore == null){
+            model.addAttribute("finalScore", (int) (Math.round(0 * scale) / scale) * 10);
+        }else{
+            model.addAttribute("finalScore", (int) (Math.round(finalScore * scale) / scale) * 10);
+        }
 //        model.addAttribute("presentAttendance", presentAttendance);
 //        model.addAttribute("totalAttendance", totalAttendance);
         model.addAttribute("listNameAndScore", courseService.findSubjectByCourseIdAndTraineeId(traineeCourse.getCourse().getId(), traineeId));
@@ -274,6 +307,7 @@ public class ClassController {
         }
         TraineeCourse traineeCourse = traineeCourseService.getByTCourseIdAndTraineeId(courseId, traineeId);
         traineeCourse.setScore(finalScore/traineeSubjects.size());
+
         traineeCourseRepository.save(traineeCourse);
         traineeSubjectRepository.save(traineeSubject.orElseThrow());
         return ResponseEntity.ok(new AjaxResponse(200, finalScore/traineeSubjects.size()));

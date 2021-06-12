@@ -54,12 +54,12 @@ public class TraineeController {
                                            @RequestParam("size") Optional<Integer> size,
                                            @RequestParam("field") Optional<String> field,
                                            @RequestParam("view") Optional<String> view,
-                                           @RequestParam("search") Optional<String> search) {
+                                           @RequestParam(value = "search", required = false) String search) {
 
         int cPage = page.orElse(1);
         int pageSize = size.orElse(10);
         String sortField = field.orElse("default");
-        String keyword = search.orElse("");
+        String keyword = search;
         String modeView = view.orElse("list");
 
 
@@ -75,6 +75,9 @@ public class TraineeController {
             } else {
                 Collections.sort(listTrainees, new GenericComparator(false, sortField));
             }
+        }
+        if(search != null){
+            listTrainees.removeIf(trainee -> !trainee.getUser().getAccount().equalsIgnoreCase(search));
         }
 
         List<Trainee> trainees = Pagination.getPage(listTrainees, cPage, pageSize);
@@ -200,11 +203,17 @@ public class TraineeController {
 
 
     @GetMapping("/trainee-details")
-    public String displayAllTraineeDetails(Model model, @RequestParam("id") Integer id) {
+    public String displayAllTraineeDetails(Model model, @RequestParam("id") Integer id, final HttpServletRequest request) {
 
         Trainee trainee = traineeService.findById(id);
 
-        double scale = Math.pow(10, 1);
+        HttpSession session = request.getSession();
+
+        if(session.getAttribute("role") != null){
+            if(session.getAttribute("role").equals("ROLE_TRAINEE")){
+                model.addAttribute("role", 2);
+            }
+        }
 
         model.addAttribute("trainee", trainee);
 //        model.addAttribute("presentAttendance", presentAttendance);

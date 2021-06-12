@@ -50,6 +50,12 @@ public class Trainee extends BaseEntity implements Serializable {
     @Column(name = "faculty")
     private String faculty;
 
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "birth_day")
+    private String birthDay;
+
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "trainee", fetch = FetchType.LAZY)
     private List<TraineeSubject> traineeSubjects = new ArrayList<>();
 

@@ -26,6 +26,15 @@ public class Trainer extends BaseEntity implements Serializable {
      @Column(name = "tel_phone")
      private String telPhone;
 
+     @Column(name = "photo")
+     private String photo;
+
+     @Column(name = "address")
+     private String address;
+
+     @Column(name = "birth_day")
+     private String birthDay;
+
      public User getUser() {
           return user;
      }

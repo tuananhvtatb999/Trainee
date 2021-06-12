@@ -74,10 +74,10 @@
 
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-md-2">
                         <a href="/class-management/add-class" class="btn btn-primary btn-block">Add Classes</a>
                     </div>
-                    <div class="col-md-3">
+                    <div sec:authorize="hasRole('ROLE_ADMIN')" class="col-md-3">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLabel11">
                             Add Training Object
                         </button>
@@ -140,7 +140,7 @@
                                 <th>END DATE</th>
                                 <th>HEAD TEACHER</th>
                                 <th>STATUS</th>
-                                <th>ADD TRAINEE</th>
+                                <th sec:authorize="hasRole('ROLE_ADMIN')">ADD TRAINEE</th>
 
                             </tr>
                             </thead>
@@ -161,7 +161,7 @@
                                     th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
                                 <td th:text="${class.statusProgress}"
                                     th:onclick="'javascript:rowClicked(\'' + ${class.id} + '\');'"></td>
-                                <td>
+                                <td sec:authorize="hasRole('ROLE_ADMIN')">
                                     <button th:if="${(class.statusProgress == 'WAITING' or class.statusProgress == 'RUNNING') and class.planCount > class.currCount}"
                                             type="button" class="btn btn-primary" data-toggle="modal"
                                             th:data-target="'#'+${class.id}">

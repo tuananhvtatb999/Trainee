@@ -1,16 +1,28 @@
 package com.edu.hutech.config;
 
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-public class UserAccessDeniedHandler implements AccessDeniedHandler {
+public class UserAccessDeniedHandler implements AuthenticationEntryPoint {
+
+    private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
-        response.sendRedirect(request.getContextPath() + "/403");
+    public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+        HttpSession session = httpServletRequest.getSession();
+
+        if(session.getAttribute("userId") != null){
+            redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/403");
+        }else {
+            redirectStrategy.sendRedirect(httpServletRequest, httpServletResponse, "/login");
+        }
     }
 }

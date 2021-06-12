@@ -223,8 +223,84 @@ var Modal = {
                 }
             });
         }
+    },
+
+    changePassword: function (element) {
+        var data = {};
+        data["old"] = $('#password-old').val();
+        data["new"] = $('#password-new').val();
+        data["retype"] = $('#password-re').val();
 
 
+        $.ajax({
+            url: "/change-password",
+            type: "post",
+            contentType: "application/json", // dữ liệu gửi lên web-service có dạng là json.
+            data: JSON.stringify(data), // object json -> string json
+
+            dataType: "json", // dữ liệu từ web-service trả về là json.
+            success: function (jsonResult) { // được gọi khi web-service trả về dữ liệu.
+                if (jsonResult.status === 200) {
+                    console.log(jsonResult.data);
+                    $('.modal').modal('hide');
+                    showNotification('top', 'right', 'Change password success!')
+                }
+                if (jsonResult.status === 400) {
+                    showWarn("Old password not correct!");
+                }
+
+                if (jsonResult.status === 401) {
+                    showWarn("New password must different old password!");
+                }
+                if (jsonResult.status === 402) {
+                    showWarn("Password retype not match new password!");
+                }
+
+
+            },
+            error: function (jqXhr, textStatus, errorMessage) { // error callback
+
+            }
+        });
+    },
+
+    changePassword1: function (element) {
+        var data = {};
+        data["old"] = $('#password-old1').val();
+        data["new"] = $('#password-new1').val();
+        data["retype"] = $('#password-re1').val();
+
+
+        $.ajax({
+            url: "/change-password1",
+            type: "post",
+            contentType: "application/json", // dữ liệu gửi lên web-service có dạng là json.
+            data: JSON.stringify(data), // object json -> string json
+
+            dataType: "json", // dữ liệu từ web-service trả về là json.
+            success: function (jsonResult) { // được gọi khi web-service trả về dữ liệu.
+                if (jsonResult.status === 200) {
+                    console.log(jsonResult.data);
+                    $('.modal').modal('hide');
+                    showNotification('top', 'right', 'Change password success!')
+                }
+                if (jsonResult.status === 400) {
+                    showWarn("Old password not correct!");
+                }
+
+                if (jsonResult.status === 401) {
+                    showWarn("New password must different old password!");
+                }
+                if (jsonResult.status === 402) {
+                    showWarn("Password retype not match new password!");
+                }
+
+
+            },
+            error: function (jqXhr, textStatus, errorMessage) { // error callback
+
+            }
+        });
     },
 
 }

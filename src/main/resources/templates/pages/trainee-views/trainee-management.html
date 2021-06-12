@@ -27,7 +27,7 @@
             </form>
         </div>
 
-        <div class="row mb-4 justify-content-end">
+        <div sec:authorize="hasRole('ROLE_ADMIN')" class="row mb-4 justify-content-end">
             <div class="col-md-3">
                 <a href="/trainee-management/add-trainee" class="btn btn-primary btn-block">Add Trainee</a>
             </div>
@@ -129,10 +129,11 @@
                             </figure>
                         </div>
                         <div class="col-md-8">
-                            <h4 class="text-primary d-flex justify-content-around"><span
+                            <h4 class="text-primary d-flex justify-content-start"><span
                                     class="fa fa-user mr-2 pt-2 text-dark"></span>
-                                <a class="pt-1" th:href="@{/trainee-management/trainee-details(id= ${trainee.id})}">[[${trainee.name}]]</a>
-                                <button type="button" onclick="Modal.deleteTrainee($(this))" th:data-id="${trainee.id}" class="btn bg-primary btn-primary text-light ml-auto">
+                                <a sec:authorize="hasRole('ROLE_ADMIN')" class="pt-1" th:href="@{/trainee-management/trainee-details(id= ${trainee.id})}">[[${trainee.name}]]</a>
+                                <a sec:authorize="hasRole('ROLE_TRAINEE')" class="pt-1">[[${trainee.name}]]</a>
+                                <button  sec:authorize="hasRole('ROLE_ADMIN')" type="button" onclick="Modal.deleteTrainee($(this))" th:data-id="${trainee.id}" class="btn bg-primary btn-primary text-light ml-auto">
                                     Delete
                                 </button>
                                 <input type="hidden" id="message" th:value="${message}">
@@ -141,36 +142,6 @@
                                     class="fa fa-info-circle mr-1"></span><strong>Account: </strong>
                                 [[${trainee.user.account}]]
                             </p>
-<!--                            <p class="mb-1"-->
-<!--                               th:if="${trainee.traineeCourse.score <= 10 and trainee.score >= 9}"-->
-<!--                            ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>-->
-<!--                                A++-->
-<!--                            </p>-->
-<!--                            <p class="mb-1"-->
-<!--                               th:if="${trainee.score < 9 and trainee.score >= 8}"-->
-<!--                            ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>-->
-<!--                                A+-->
-<!--                            </p>-->
-<!--                            <p class="mb-1"-->
-<!--                               th:if="${trainee.score < 8 and trainee.score >= 7}"-->
-<!--                            ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>-->
-<!--                                A-->
-<!--                            </p>-->
-<!--                            <p class="mb-1"-->
-<!--                               th:if="${trainee.score < 7 and trainee.score >= 6}"-->
-<!--                            ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>-->
-<!--                                B-->
-<!--                            </p>-->
-<!--                            <p class="mb-1"-->
-<!--                               th:if="${trainee.score < 6 and trainee.score >= 5}"-->
-<!--                            ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>-->
-<!--                                C-->
-<!--                            </p>-->
-<!--                            <p class="mb-1" th:if="${trainee.score < 5}"-->
-<!--                            ><span class="fa fa-graduation-cap mr-1"></span><strong>Rank: </strong>-->
-<!--                                D-->
-<!--                            </p>-->
-
                             <p class="mb-1 text-primary"><span
                                     class="fa fa-envelope mr-1 text-dark"></span><strong
                                     class="text-dark">Email: </strong>

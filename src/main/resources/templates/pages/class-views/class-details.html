@@ -66,12 +66,12 @@
                                     <div class="p-2 bd-highlight">Total</div>
                                 </div>
                                 <div class="d-flex flex-column bd-highlight mb-3" style="color: #FF3D67;">
-                                    <div class="p-2 bd-highlight h3">0</div>
+                                    <div class="p-2 bd-highlight h3" th:text="${failed}">0</div>
                                     <div class="p-2 bd-highlight">Failed</div>
                                 </div>
                                 <div class="d-flex flex-column bd-highlight mb-3" style="color: #33d6ff;">
-                                    <div class="p-2 bd-highlight h3">0</div>
-                                    <div class="p-2 bd-highlight">Passed</div>
+                                    <div class="p-2 bd-highlight h3" th:text="${pass}">0</div>
+                                    <div class="p-2 bd-highlight" >Passed</div>
                                 </div>
                                 <div class="d-flex flex-column bd-highlight mb-3" style="color: #4e565c;">
                                     <div class="p-2 bd-highlight h3">0</div>
@@ -180,7 +180,7 @@
             <th:block th:if="${modeView eq 'list'}">
                 <div class="col-md-6" th:each="traineeCourse : ${traineeCourses}">
                     <div class="card profile d-flex flex-row">
-                        <div class="col-md-4 text-center">
+                        <div class="col-md-4 text-center mt-2">
                             <figure>
                                 <img src="/img/avt.jpg" alt="" class="rounded-circle img-fluid mt-4">
                                 <figcaption class="ratings">

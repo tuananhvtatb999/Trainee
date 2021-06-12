@@ -1042,4 +1042,19 @@ $('#save-class').click(function () {
     });
 })
 
+function checkBirthDay(element) {
+    var dateX = element.attr('value')
+    var date = dateX.substring(0, 2);
+    var month = dateX.substring(3, 5);
+    var year = dateX.substring(6, 10);
+    var dateY = new Date(dateX);
+    console.log(dateY);console.log(new Date())
+    var crr = new Date();
+    if (crr > dateY){
+        showNotification('top','right','Good!')
+    }else {
+        showNotification('top','right','Good!')
+    }
+}
+
 

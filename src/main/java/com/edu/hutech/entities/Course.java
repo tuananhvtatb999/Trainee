@@ -47,6 +47,12 @@ public class Course extends BaseEntity implements Serializable {
     @Column(name = "status_progress")
     private String statusProgress;
 
+    @Column(name = "pass")
+    private int pass = 0;
+
+    @Column(name = "failed")
+    private int failed = 0;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "trainer_id")
     private Trainer trainer;

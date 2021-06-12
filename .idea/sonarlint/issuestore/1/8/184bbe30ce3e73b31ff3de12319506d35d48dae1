@@ -1,4 +1,6 @@
 
-X	java:S125w"<This block of commented-out lines of code should be removed.(Ö“Àä8ïÈÅ²Ÿ/
-Y	java:S125ğ"<This block of commented-out lines of code should be removed.(“¾Ì8ïÈÅ²Ÿ/
-Y	java:S125ó"<This block of commented-out lines of code should be removed.(™Å…é8ïÈÅ²Ÿ/
+Y	java:S125”"<This block of commented-out lines of code should be removed.(™Å…é8ë©—ŞŸ/
+i
+java:S1192T"GDefine a constant instead of duplicating this literal "userId" 3 times.(´Šãğûÿÿÿÿ8ã¢¥ØŸ/
+Y	java:S125…"<This block of commented-out lines of code should be removed.(Ö“Àä8ïÈÅ²Ÿ/
+Y	java:S125‘"<This block of commented-out lines of code should be removed.(“¾Ì8ë©—ŞŸ/

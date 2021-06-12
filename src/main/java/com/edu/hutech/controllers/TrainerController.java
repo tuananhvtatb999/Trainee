@@ -142,7 +142,13 @@ public class TrainerController {
     @GetMapping("/update-trainer")
     public String updateView(@RequestParam Integer id,
             final ModelMap model, final HttpServletRequest request){
+        HttpSession session = request.getSession();
 
+        if(session.getAttribute("role") != null){
+            if(session.getAttribute("role").equals("ROLE_TRAINER")){
+                model.addAttribute("role", 1);
+            }
+        }
         model.addAttribute("trainer", trainerService.findById(id));
         return "pages/trainer-views/trainer-update";
     }

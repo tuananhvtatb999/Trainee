@@ -2,7 +2,7 @@
 <html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout-template.html}"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      th:with="currentPage='Trainee Management',currentLink='Trainee Management',currentTemplate='Default Management'"
+      th:with="currentTemplate=${role == 2 ? 'User Profile' : 'Default Management'}"
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
@@ -78,13 +78,22 @@
                                                     <input id="uni" th:field="*{university}" type="text"
                                                            class="form-control" required>
                                                 </div>
+                                                <div sec:authorize="hasRole('ROLE_TRAINEE')" class="form-group">
+                                                    <label for="address">Address</label>
+                                                    <input id="address" th:field="*{address}" th:value="*{address}" name="address" type="text" class="form-control" required>
+                                                </div>
+
+                                                <div sec:authorize="hasRole('ROLE_TRAINEE')" class="form-group">
+                                                    <label for="birth-day">Birth Day</label><br/>
+                                                    <input id="birth-day" th:field="*{birthDay}" th:value="*{birthDay}" onchange="checkBirthDay($(this))" title="Birth Day" type="date" required/>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <button type="submit" id="save"
                                                 class="btn btn-primary mr-1 waves-effect waves-light">Save Changes
                                         </button>
-                                        <a href="/class-management" class="btn btn-secondary waves-effect">Cancel</a>
+                                        <a href="/trainee-management" class="btn btn-secondary waves-effect">Cancel</a>
                                     </form>
 
                                 </div>

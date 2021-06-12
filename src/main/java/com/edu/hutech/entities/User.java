@@ -37,6 +37,17 @@ public class User extends BaseEntity implements UserDetails, Serializable {
     @OneToOne(mappedBy = "user")
     private Trainer trainer;
 
+    public Trainee getTrainee() {
+        return trainee;
+    }
+
+    public void setTrainee(Trainee trainee) {
+        this.trainee = trainee;
+    }
+
+    @OneToOne(mappedBy = "user")
+    private Trainee trainee;
+
     @Override
     public String getPassword() {
         return password;
@@ -47,7 +58,10 @@ public class User extends BaseEntity implements UserDetails, Serializable {
         if(this.getRoles().getAuthority().equals("ROLE_ADMIN") ){
             return "Administrator";
         }
-        return this.getTrainer().getName();
+        if(this.getRoles().getAuthority().equals("ROLE_TRAINER")){
+            return this.getTrainer().getName();
+        }
+        return this.getTrainee().getName();
     }
 
     public String getAccount() {

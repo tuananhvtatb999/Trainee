@@ -3,7 +3,6 @@ package com.edu.hutech.services.implementation;
 import com.edu.hutech.entities.Course;
 import com.edu.hutech.entities.Trainee;
 import com.edu.hutech.entities.TraineeCourse;
-import com.edu.hutech.entities.Trainer;
 import com.edu.hutech.repositories.CourseRepository;
 import com.edu.hutech.repositories.TraineeCourseRepository;
 import com.edu.hutech.repositories.TraineeRepository;
@@ -12,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -39,6 +41,8 @@ public class TraineeServiceImpl implements TraineeService {
         traineeInDB.setEmail(trainee.getEmail());
         traineeInDB.setTelPhone(trainee.getTelPhone());
         traineeInDB.setUniversity(trainee.getUniversity());
+        traineeInDB.setAddress(trainee.getAddress());
+        traineeInDB.setBirthDay(trainee.getBirthDay());
         traineeInDB.getUser().setAccount(trainee.getEmail().substring(0, trainee.getEmail().indexOf("@")));
         traineeRepository.save(traineeInDB);
     }

@@ -49,7 +49,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/dashboard/**","/class-management/**").hasAnyAuthority("ROLE_TRAINER", "ROLE_ADMIN","ROLE_TRAINEE")
 
                 .and()
-                .exceptionHandling().accessDeniedHandler(new UserAccessDeniedHandler())
+                .exceptionHandling().authenticationEntryPoint(new UserAccessDeniedHandler())
                 .accessDeniedPage("/404")
 
                 .and()
@@ -58,7 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll().successHandler(authenticationSuccessHandler)
 //                .usernameParameter("username")
 //                .passwordParameter("password")
-                .defaultSuccessUrl("/dashboard", true)
                 .failureUrl("/login?error=true")
 
                 .and()

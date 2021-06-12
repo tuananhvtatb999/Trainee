@@ -28,23 +28,12 @@
             </form>
         </div>
         <input type="hidden" id="message" th:value="${message}">
-        <div class="row mb-4 justify-content-end">
+        <div class="row mb-4 justify-content-end" sec:authorize="hasRole('ROLE_ADMIN')">
             <div class="col-md-3">
                 <a id="add" href="/trainer-management/add-trainer" class="btn btn-primary btn-block">Add Trainer</a>
             </div>
         </div>
 
-        <form th:action="@{/action}" method="post" sec:authorize="isAuthenticated()">
-            <div class="row mb-4 justify-content-start">
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary btn-block">Import Trainers</button>
-                </div>
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-primary btn-block">Import Trainer Info</button>
-                </div>
-
-            </div>
-        </form>
 
         <form method="GET" th:action="@{/trainer-management}">
             <div class="row d-flex justify-content-between">
@@ -122,8 +111,8 @@
                                 <th>ACCOUNT</th>
                                 <th>EMAIL</th>
                                 <th>TEL NUMBER</th>
-                                <th>MODIFY</th>
-                                <th>DELETE</th>
+                                <th  sec:authorize="hasRole('ROLE_ADMIN')">MODIFY</th>
+                                <th  sec:authorize="hasRole('ROLE_ADMIN')">DELETE</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -133,13 +122,13 @@
                                 <td th:text="${trainer.user.account}"></td>
                                 <td th:text="${trainer.email}"></td>
                                 <td th:text="${trainer.telPhone}"></td>
-                                <td>
+                                <td sec:authorize="hasRole('ROLE_ADMIN')">
                                     <a  type="button" class="btn btn-primary"
                                        th:href="@{/trainer-management/update-trainer(id=${trainer.id})}">
                                         Modify
                                     </a>
                                 </td>
-                                <td>
+                                <td sec:authorize="hasRole('ROLE_ADMIN')">
                                     <button type="button" class="btn btn-primary" data-toggle="modal"
                                             data-target="#exampleModal" onclick="Modal.delete($(this))" th:data="${trainer.id}">
                                         Delete

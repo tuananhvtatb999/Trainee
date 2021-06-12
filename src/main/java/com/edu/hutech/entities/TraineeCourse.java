@@ -26,4 +26,5 @@ public class TraineeCourse extends BaseEntity implements Serializable {
     @JoinColumn(name = "course_id")
     private Course course;
 
+
 }

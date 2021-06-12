@@ -140,17 +140,6 @@ public class HomeController {
      *
      * @return the error view
      */
-    @GetMapping("/403")
-    public String error() {
-        return "/pages/util-views/404";
-    }
 
-    @PostMapping("/check-email")
-    public ResponseEntity<AjaxResponse> checkEmail(@RequestBody String email){
-        if(userService.checkEmail(email)){
-            return ResponseEntity.ok(new AjaxResponse(400, null));
-        }
-        return ResponseEntity.ok(new AjaxResponse(200, email));
-    }
 
 }

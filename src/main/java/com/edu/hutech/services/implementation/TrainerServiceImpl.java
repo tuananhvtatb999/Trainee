@@ -32,6 +32,8 @@ public class TrainerServiceImpl implements TrainerService {
         trainerInDB.setName(trainer.getName());
         trainerInDB.setEmail(trainer.getEmail());
         trainerInDB.setTelPhone(trainer.getTelPhone());
+        trainerInDB.setBirthDay(trainer.getBirthDay());
+        trainerInDB.setAddress(trainer.getAddress());
         trainerInDB.getUser().setAccount(trainer.getEmail().substring(0, trainer.getEmail().indexOf("@")));
         trainerRepository.save(trainerInDB);
     }
